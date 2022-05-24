@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+#define ll long long 
+using namespace std;
+ll wt[105],val[105];
+ll dp[105][100005];
+ll fun(int i,int w){
+    
+    if(i<0) return  0;
+    if(w==0)return  0;
+    
+    
+    if(dp[i][w]!=-1) return dp[i][w];
+    
+    //if element at this index is not choosen
+    ll ans=fun(i-1,w);
+    
+    //if element at this index is choosen ,hence adding the value corresponding to this index and function call of index-1 element
+    if(w-wt[i]>=0)//if this condition is negative then no reason to functioncall
+    
+    ans=max(ans,(fun(i-1,w-wt[i])+val[i]));//taking max of two cases that is taken or not taken
+    
+    return dp[i][w]=ans;
+   
+}
+
+
+
+
+
+int main()
+{
+    int n,w;
+    cin>>n>>w;
+    memset(dp,-1,sizeof(dp));
+    
+    for(int i=0;i<n;i++){
+        cin>>wt[i]>>val[i];
+    }
+    cout<<fun(n-1,w);
+    
+
+    return 0;
+}
